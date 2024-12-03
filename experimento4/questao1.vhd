@@ -8,6 +8,12 @@ end entity;
 
 architecture multiplexadorDuplo_arch of multiplexadorDuplo is
 
+component INVERSORA is
+	PORT(X: in std_logic;
+	Y: out std_logic);
+end component;
+
+
 component MULTIPLEXADOR4x1 is
 PORT(S: in std_logic_vector(1 downto 0);
 	D: in std_logic_vector(3 downto 0);
@@ -23,6 +29,8 @@ signal entradasX:STD_LOGIC_VECTOR(3 downto 0);
 --o multiplexador com saida Y
 signal seletorasY:STD_LOGIC_VECTOR(1 downto 0);
 signal entradasY:STD_LOGIC_VECTOR(3 downto 0);
+signal notC:STD_LOGIC;
+
 
 begin
 
@@ -32,9 +40,12 @@ entradasX <= "1"&A&"0"&A;
 U0: MULTIPLEXADOR4x1 port map(seletorasX,entradasX,X);
 
 seletorasY <= A&B;
-entradasY <= C&"0"&not(C)&"1";
 
-U1: MULTIPLEXADOR4x1 port map(seletorasY,entradasY,Y);
+U1:INVERSORA port map(C,notC);
+
+entradasY <= C&"0"&notC&"1";
+
+U2: MULTIPLEXADOR4x1 port map(seletorasY,entradasY,Y);
 
 
 end multiplexadorDuplo_arch;
