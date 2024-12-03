@@ -8,7 +8,7 @@ end entity;
 
 architecture muxDecoder_arch of muxDecoder is
 
-component MULTIPLEXADOR4x1 is
+component MULTIPLEXADOR8x1 is
 	PORT(S: in std_logic_vector(2 downto 0);
 		D: in std_logic_vector(7 downto 0);
 		Y: out std_logic);
@@ -41,7 +41,7 @@ inMux(2) <= outDecoder(7);
 inMux(1) <= outDecoder(15) or outDecoder(0);
 inMux(0) <= '0';
 
-U2: MULTIPLEXADOR4x1 port map(selectorsMux,inMux,Z);
+U2: MULTIPLEXADOR8x1 port map(selectorsMux,inMux,Z);
 
 
 end muxDecoder_arch;
