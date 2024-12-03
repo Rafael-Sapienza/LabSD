@@ -26,15 +26,15 @@ signal entradasY:STD_LOGIC_VECTOR(3 downto 0);
 
 begin
 
-seletoras <= B&C;
-entradas <= "1"&A&"0"&A;
+seletorasX <= B&C;
+entradasX <= "1"&A&"0"&A;
 
-U0: MULTIPLEXADOR port map(seletorasX,entradasX,X);
+U0: MULTIPLEXADOR4x1 port map(seletorasX,entradasX,X);
 
-seletoras <= A&B;
-entradas <= C&"0"&not(C)&"1";
+seletorasY <= A&B;
+entradasY <= C&"0"&not(C)&"1";
 
-U1: MULTIPLEXADOR port map(seletorasY,entradasY,Y);
+U1: MULTIPLEXADOR4x1 port map(seletorasY,entradasY,Y);
 
 
 end multiplexadorDuplo_arch;
