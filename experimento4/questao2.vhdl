@@ -31,8 +31,6 @@ signal inDecoder:STD_LOGIC_VECTOR(3 downto 0);
 signal outDecoder:STD_LOGIC_VECTOR(15 downto 0);
 signal selectorsMux:STD_LOGIC_VECTOR(2 downto 0);
 signal inMux:STD_LOGIC_VECTOR(7 downto 0);
-signal aux1:STD_LOGIC;
-signal aux2:STD_LOGIC;
 
 begin
 
@@ -42,21 +40,21 @@ selectorsMux <= E&F&G;
 U0: DECODIFICADOR4X16 port map(inDecoder,outDecoder);
 
 inMux(7) <= '1';
-inMux(6) <= outDecoder(11);
+
+U1: orGate port map(outDecoder(10),outDecoder(11),inMux(6));
+
 inMux(5) <= '0';
 
-U1: orGate port map(outDecoder(9),outDecoder(15),aux1);
+U2: orGate port map(outDecoder(9),outDecoder(15),inMux(4));
 
-inMux(4) <= aux1;
 inMux(3) <= '1';
 inMux(2) <= outDecoder(7);
 
-U2: orGate port map(outDecoder(0),outDecoder(15),aux2);
+U3: orGate port map(outDecoder(0),outDecoder(15),inMux(1));
 
-inMux(1) <= aux2;
 inMux(0) <= '0';
 
-U3: MULTIPLEXADOR8x1 port map(selectorsMux,inMux,Z);
+U4: MULTIPLEXADOR8x1 port map(selectorsMux,inMux,Z);
 
 
 end muxDecoder_arch;
