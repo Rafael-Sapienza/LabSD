@@ -11,10 +11,10 @@ signal Qbuf : std_logic;
 signal JK:std_logic_vector(1 downto 0);
 begin
 JK <= J&K;
-process(PR,CLR,CLK,J,K)
+process(PR,CLR,CLK)
 begin
-	if PR = '1' then Q <= '1';
-	elsif CLR = '1' then Q <= '0';
+	if PR = '1' then Qbuf <= '1';
+	elsif CLR = '1' then Qbuf <= '0';
 	elsif rising_edge(CLK) then
 		case JK is
 		when "00" => Qbuf <= Qbuf;
@@ -25,6 +25,6 @@ begin
 		end case;
 	else Qbuf <= Qbuf;
 	end if;
-	Q <= Qbuf;
 end process;
+Q <= Qbuf;
 end flipflopJK_arch;
