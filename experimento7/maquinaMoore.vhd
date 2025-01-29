@@ -6,13 +6,13 @@ port
 (
 	clock: in std_logic;
 	A:in std_logic_vector(1 downto 0);
-	Produto, Moeda_25, Moeda_50: out std_logic
+	P, M_25, M_50: out std_logic
 );
 end maquinaDeVendas;
 
 architecture maquinaDeVendas_arch of maquinaDeVendas is
 
-type estado is (Idle, Centavos_25, Centavos_50, Centavos_75, Troco_25, Troco_50, Troco_75, LiberaComTroco_25, LiberaSemTroco);
+type estado is (Idle, C_25, C_50, C_75, T_25, T_50, T_75, LiberaComT_25, LiberaSemT);
 
 signal currentState, nextState: estado;
 
@@ -29,73 +29,73 @@ comb_proc: process(currentState,A)
 begin
 	case currentState is
 	when Idle =>
-	Produto <= '0'; Moeda_25 <= '0'; Moeda_50 <= '0';
+	P <= '0'; M_25 <= '0'; M_50 <= '0';
 	if (A = "01") then
-		nextState <= Centavos_25;
+		nextState <= C_25;
 	elsif (A = "10") then
-		nextState <= Centavos_50;
+		nextState <= C_50;
 	else 
 		nextState <= currentState;
 	end if;
 
-	when Centavos_25 =>
-	Produto <= '0'; Moeda_25 <= '0'; Moeda_50 <= '0';
+	when C_25 =>
+	P <= '0'; M_25 <= '0'; M_50 <= '0';
 	if (A = "01") then
-		nextState <= Centavos_50;
+		nextState <= C_50;
 	elsif (A = "10") then 
-		nextState <= Centavos_75;
+		nextState <= C_75;
 	elsif (A = "11") then
-		nextState <= Troco_25;
+		nextState <= T_25;
 	else
 		nextState <= currentState;
 	end if;
 
-	when Centavos_50 =>
-	Produto <= '0'; Moeda_25 <= '0'; Moeda_50 <= '0';
+	when C_50 =>
+	P <= '0'; M_25 <= '0'; M_50 <= '0';
 	if (A = "01") then
-		nextState <= Centavos_75;
+		nextState <= C_75;
 	elsif (A = "10") then 
-		nextState <= LiberaSemTroco;
+		nextState <= LiberaSemT;
 	elsif (A = "11") then
-		nextState <= Troco_50;
+		nextState <= T_50;
 	else
 		nextState <= currentState;
 	end if;
 
-	when Centavos_75 =>
-	Produto <= '0'; Moeda_25 <= '0'; Moeda_50 <= '0';
+	when C_75 =>
+	P <= '0'; M_25 <= '0'; M_50 <= '0';
 	if (A = "01") then
-		nextState <= LiberaSemTroco;
+		nextState <= LiberaSemT;
 	elsif (A = "10") then 
-		nextState <= LiberaComTroco_25;
+		nextState <= LiberaComT_25;
 	elsif (A = "11") then
-		nextState <= Troco_75;
+		nextState <= T_75;
 	else
 		nextState <= currentState;
 	end if;
 
-	when Troco_25 =>
-	Produto <= '0'; Moeda_25 <= '1'; Moeda_50 <= '0';
+	when T_25 =>
+	P <= '0'; M_25 <= '1'; M_50 <= '0';
 	nextState <= Idle;
 
-	when Troco_50 =>
-	Produto <= '0'; Moeda_25 <= '0'; Moeda_50 <= '1';
+	when T_50 =>
+	P <= '0'; M_25 <= '0'; M_50 <= '1';
 	nextState <= Idle;
 
-	when Troco_75 =>
-	Produto <= '0'; Moeda_25 <= '1'; Moeda_50 <= '1';
+	when T_75 =>
+	P <= '0'; M_25 <= '1'; M_50 <= '1';
 	nextState <= Idle;
 
-	when LiberaComTroco_25 =>
-	Produto <= '1'; Moeda_25 <= '1'; Moeda_50 <= '0';
+	when LiberaComT_25 =>
+	P <= '1'; M_25 <= '1'; M_50 <= '0';
 	nextState <= Idle;
 
-	when LiberaSemTroco =>
-	Produto <= '1'; Moeda_25 <= '0'; Moeda_50 <= '0';
+	when LiberaSemT =>
+	P <= '1'; M_25 <= '0'; M_50 <= '0';
 	nextState <= Idle;
 
 	when others => 
-	Produto <= '0'; Moeda_25 <= '0'; Moeda_50 <= '0';
+	P <= '0'; M_25 <= '0'; M_50 <= '0';
 	end case;
 end process comb_proc;
 
