@@ -18,14 +18,14 @@ end contadorMod100;
 architecture contadorMod100_arch of contadorMod100 is
 
     component contadorMod10 is
-        port(clock :in std_logic;
-	Reset:in std_logic;
-	Enable: in std_logic;
-	RCL: in std_logic;
-	LOAD: in std_logic;
-	D: in std_logic_vector(3 downto 0);
-	Q: out std_logic_vector(3 downto 0);
-	RCO: out std_logic);
+    port(clock :in std_logic;
+		Reset:in std_logic;
+		Enable: in std_logic;
+		RCI: in std_logic;
+		LOAD: in std_logic;
+		D: in std_logic_vector(3 downto 0);
+		Q: out std_logic_vector(3 downto 0);
+		RCO: out std_logic);
     end component;
 
     signal RCO_v2,RCO_v3: std_logic;

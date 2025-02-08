@@ -9,7 +9,7 @@ port
 	clock: in std_logic;
 	Reset:in std_logic;
 	Enable: in std_logic;
-	RCL: in std_logic;
+	RCI: in std_logic;
 	LOAD: in std_logic;
 	D: in std_logic_vector(3 downto 0);
 	Q: out std_logic_vector(3 downto 0);
@@ -30,7 +30,7 @@ begin
 	end if;
 end process sync_proc;
 
-comb_proc: process(currentState,RESET,LOAD,ENABLE,RCL)
+comb_proc: process(currentState,RESET,LOAD,ENABLE,RCI,D)
 begin
 	case currentState is
 	when "0000" =>
@@ -39,7 +39,7 @@ begin
 		nextState <= "0000";
 	elsif (LOAD = '1') then
 		nextState <= D;
-	elsif (ENABLE = '0' and RCL = '0') then
+	elsif (ENABLE = '0' and RCI = '0') then
 		nextState <= unsigned(currentState) +1;
 	else
 		nextState <= currentState;
@@ -51,7 +51,7 @@ begin
 		nextState <= "0000";
 	elsif (LOAD = '1') then
 		nextState <= D;
-	elsif (ENABLE = '0' and RCL = '0') then
+	elsif (ENABLE = '0' and RCI = '0') then
 		nextState <= unsigned(currentState) + 1;
 	else
 		nextState <= currentState;
@@ -63,7 +63,7 @@ begin
 		nextState <= "0000";
 	elsif (LOAD = '1') then
 		nextState <= D;
-	elsif (ENABLE = '0' and RCL = '0') then
+	elsif (ENABLE = '0' and RCI = '0') then
 		nextState <= unsigned(currentState) + 1;
 	else
 		nextState <= currentState;
@@ -75,31 +75,31 @@ begin
 		nextState <= "0000";
 	elsif (LOAD = '1') then
 		nextState <= D;
-	elsif (ENABLE = '0' and RCL = '0') then
+	elsif (ENABLE = '0' and RCI = '0') then
 		nextState <= unsigned(currentState) + 1;
 	else
 		nextState <= currentState;
 	end if;
 
 	when "0100" =>
-	Q <= "0010"; RCO <= '1';
+	Q <= "0100"; RCO <= '1';
 	if (RESET = '1') then
 		nextState <= "0000";
 	elsif (LOAD = '1') then
 		nextState <= D;
-	elsif (ENABLE = '0' and RCL = '0') then
+	elsif (ENABLE = '0' and RCI = '0') then
 		nextState <= unsigned(currentState) + 1;
 	else
 		nextState <= currentState;
 	end if;
 
 	when "0101" =>
-	Q <= "0011"; RCO <= '1';
+	Q <= "0101"; RCO <= '1';
 	if (RESET = '1') then
 		nextState <= "0000";
 	elsif (LOAD = '1') then
 		nextState <= D;
-	elsif (ENABLE = '0' and RCL = '0') then
+	elsif (ENABLE = '0' and RCI = '0') then
 		nextState <= unsigned(currentState) + 1;
 	else
 		nextState <= currentState;
@@ -111,7 +111,7 @@ begin
 		nextState <= "0000";
 	elsif (LOAD = '1') then
 		nextState <= D;
-	elsif (ENABLE = '0' and RCL = '0') then
+	elsif (ENABLE = '0' and RCI = '0') then
 		nextState <= unsigned(currentState) + 1;
 	else
 		nextState <= currentState;
@@ -123,7 +123,7 @@ begin
 		nextState <= "0000";
 	elsif (LOAD = '1') then
 		nextState <= D;
-	elsif (ENABLE = '0' and RCL = '0') then
+	elsif (ENABLE = '0' and RCI = '0') then
 		nextState <= unsigned(currentState) + 1;
 	else
 		nextState <= currentState;
@@ -135,7 +135,7 @@ begin
 		nextState <= "0000";
 	elsif (LOAD = '1') then
 		nextState <= D;
-	elsif (ENABLE = '0' and RCL = '0') then
+	elsif (ENABLE = '0' and RCI = '0') then
 		nextState <= unsigned(currentState) + 1;
 	else
 		nextState <= currentState;
@@ -147,7 +147,7 @@ begin
 		nextState <= "0000";
 	elsif (LOAD = '1') then
 		nextState <= D;
-	elsif (ENABLE = '0' and RCL = '0') then
+	elsif (ENABLE = '0' and RCI = '0') then
 		nextState <= "0000";
 	else
 		nextState <= currentState;
