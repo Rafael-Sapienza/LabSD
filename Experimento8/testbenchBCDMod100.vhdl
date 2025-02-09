@@ -17,7 +17,7 @@ BEGIN
 		variable DEZENA_VEC, UNIDADE_VEC : STD_LOGIC_VECTOR(3 downto 0);
 	begin
 		report "Iniciando teste..." severity NOTE;
-        --Forçando entradas do conatador a assumirem certos valores iniciais
+        --Forçando entradas do contador a assumirem certos valores iniciais
         RESET <= '0';
         ENABLE <= '1';
         LOAD <= '0';

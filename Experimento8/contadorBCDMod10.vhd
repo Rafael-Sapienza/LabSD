@@ -33,116 +33,17 @@ end process sync_proc;
 comb_proc: process(currentState,RESET,LOAD,ENABLE,RCI,D)
 begin
 	case currentState is
-	when "0000" =>
-	Q <= "0000"; RCO <= '1';
-	if (RESET = '1') then
-		nextState <= "0000";
-	elsif (LOAD = '1') then
-		nextState <= D;
-	elsif (ENABLE = '0' and RCI = '0') then
-		nextState <= unsigned(currentState) +1;
-	else
-		nextState <= currentState;
-	end if;
+	when "1011" =>
+	nextState <= "0000"; Q <= "0000";
 
-	when "0001" =>
-	Q <= "0001"; RCO <= '1';
-	if (RESET = '1') then
-		nextState <= "0000";
-	elsif (LOAD = '1') then
-		nextState <= D;
-	elsif (ENABLE = '0' and RCI = '0') then
-		nextState <= unsigned(currentState) + 1;
-	else
-		nextState <= currentState;
-	end if;
+	when "1101" =>
+	nextState <= "0000"; Q <= "0000";
 
-	when "0010" =>
-	Q <= "0010"; RCO <= '1';
-	if (RESET = '1') then
-		nextState <= "0000";
-	elsif (LOAD = '1') then
-		nextState <= D;
-	elsif (ENABLE = '0' and RCI = '0') then
-		nextState <= unsigned(currentState) + 1;
-	else
-		nextState <= currentState;
-	end if;
-
-	when "0011" =>
-	Q <= "0011"; RCO <= '1';
-	if (RESET = '1') then
-		nextState <= "0000";
-	elsif (LOAD = '1') then
-		nextState <= D;
-	elsif (ENABLE = '0' and RCI = '0') then
-		nextState <= unsigned(currentState) + 1;
-	else
-		nextState <= currentState;
-	end if;
-
-	when "0100" =>
-	Q <= "0100"; RCO <= '1';
-	if (RESET = '1') then
-		nextState <= "0000";
-	elsif (LOAD = '1') then
-		nextState <= D;
-	elsif (ENABLE = '0' and RCI = '0') then
-		nextState <= unsigned(currentState) + 1;
-	else
-		nextState <= currentState;
-	end if;
-
-	when "0101" =>
-	Q <= "0101"; RCO <= '1';
-	if (RESET = '1') then
-		nextState <= "0000";
-	elsif (LOAD = '1') then
-		nextState <= D;
-	elsif (ENABLE = '0' and RCI = '0') then
-		nextState <= unsigned(currentState) + 1;
-	else
-		nextState <= currentState;
-	end if;
-
-	when "0110" =>
-	Q <= "0110"; RCO <= '1';
-	if (RESET = '1') then
-		nextState <= "0000";
-	elsif (LOAD = '1') then
-		nextState <= D;
-	elsif (ENABLE = '0' and RCI = '0') then
-		nextState <= unsigned(currentState) + 1;
-	else
-		nextState <= currentState;
-	end if;
-
-	when "0111" =>
-	Q <= "0111"; RCO <= '1';
-	if (RESET = '1') then
-		nextState <= "0000";
-	elsif (LOAD = '1') then
-		nextState <= D;
-	elsif (ENABLE = '0' and RCI = '0') then
-		nextState <= unsigned(currentState) + 1;
-	else
-		nextState <= currentState;
-	end if;
-
-	when "1000" =>
-	Q <= "1000"; RCO <= '1';
-	if (RESET = '1') then
-		nextState <= "0000";
-	elsif (LOAD = '1') then
-		nextState <= D;
-	elsif (ENABLE = '0' and RCI = '0') then
-		nextState <= unsigned(currentState) + 1;
-	else
-		nextState <= currentState;
-	end if;
+	when "1111" =>
+	nextState <= "0000"; Q <= "0000";
 
 	when "1001" =>
-	Q <= "1001"; RCO <= '0';
+	Q <= currentState; RCO <= '0';
 	if (RESET = '1') then
 		nextState <= "0000";
 	elsif (LOAD = '1') then
@@ -154,12 +55,18 @@ begin
 	end if;
 
 	when others => 
-	nextState <= "0000";
+	Q <= currentState; RCO <= '1';
+	if (RESET = '1') then
+		nextState <= "0000";
+	elsif (LOAD = '1') then
+		nextState <= D;
+	elsif (ENABLE = '0' and RCI = '0') then
+		nextState <= unsigned(currentState) +1;
+	else
+		nextState <= currentState;
+	end if;
 	end case;
 
 end process comb_proc;
 
 end contadorMod10_arch;
-
-
-
