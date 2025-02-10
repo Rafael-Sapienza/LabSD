@@ -102,6 +102,3 @@ begin
 end process comb_proc;
 
 end maquinaDeVendas_arch;
-
-
-
